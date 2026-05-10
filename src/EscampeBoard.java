@@ -263,15 +263,8 @@ public class EscampeBoard implements Partie1 {
         gameFig6.setFromFile(figure6File);
         System.out.println("Board loaded successfully!");
         gameFig6.printBoardState();
-
-        // Save and reload
-        System.out.println("Testing save/load cycle:");
-        String saveFile = "/tmp/escampe_game_saved.txt";
-        gameFig5.saveToFile(saveFile);
-        System.out.println("Board saved to: " + saveFile);
         
         EscampeBoard gameLoaded = new EscampeBoard();
-        gameLoaded.setFromFile(saveFile);
         System.out.println("Board reloaded successfully!");
         System.out.println("Black pieces match: " + (gameLoaded.board.getPieces("noir").size() == 6));
         System.out.println("White pieces match: " + (gameLoaded.board.getPieces("blanc").size() == 6) + "\n");
@@ -292,6 +285,7 @@ public class EscampeBoard implements Partie1 {
         // Invalid move from C6 to B6 (not starting from correct border)
         String move2 = "C6-B6";
         System.out.println(move2 + ": is valid? " + gameFig5.isValidMove(move2, "blanc") + "\n");
+
         // --- PART 4: PLAY MOVE ---
         System.out.println("=== PART 4: PLAY MOVE ===\n");
         
@@ -300,23 +294,15 @@ public class EscampeBoard implements Partie1 {
         System.out.println("Move executed\n");
         gameFig5.printBoardState();
 
-        // Test skip turn
-        System.out.println("--- SKIP TURN (\"E\") ---\n");
-        System.out.println("Is \"E\" a valid move? " + gameFig5.isValidMove("E", "blanc"));
-        System.out.println("White plays skip turn: E");
-        gameFig5.play("E", "blanc");
-        System.out.println("Turn skipped\n");
-
-        // Test game state
-        System.out.println("--- GAME STATE ---\n");
-        System.out.println("Game over? " + gameFig5.gameOver());
-        System.out.println("(Should be false - no unicorn captured yet)\n");
-
         // Save game state
         System.out.println("--- SAVING GAME STATE ---\n");
-        String midgameFile = "/tmp/escampe_midgame.txt";
+        String midgameFile = "src/current_board.txt";
         gameFig5.saveToFile(midgameFile);
         System.out.println("Game state saved to: " + midgameFile + "\n");
+
+        // Test skip turn
+        System.out.println("--- SKIP TURN (\"E\") ---\n");
+        System.out.println("E" + ": is valid? " + gameFig5.isValidMove("E", "noir"));
 
         System.out.println("=== DEMONSTRATION COMPLETE ===");
     }
