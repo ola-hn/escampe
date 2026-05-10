@@ -243,30 +243,26 @@ public class EscampeBoard implements Partie1 {
     public static void main(String[] args) {
         System.out.println("=== DEMONSTRATION OF ESCAMPE GAME ===\n");
 
-        // --- PART 1: FILE I/O WITH FIGURES 5 AND 6 ---
+        // --- PART 1: FILE I/O WITH FIGURES 5 AND 6 BOARDS ---
         System.out.println("=== PART 1: FILE I/O DEMONSTRATION ===\n");
 
         // Load Figure 5 example from file
-        System.out.println("Loading initial board configuration from file (Figure 5):");
+        System.out.println("Loading board configuration from file (Figure 5):");
         String figure5File = "src/figure5_board.txt";
         System.out.println("File: " + figure5File);
         EscampeBoard gameFig5 = new EscampeBoard();
         gameFig5.setFromFile(figure5File);
         System.out.println("Board loaded successfully!");
-        System.out.println("Black pieces: " + gameFig5.board.getPieces("noir").size());
-        System.out.println("White pieces: " + gameFig5.board.getPieces("blanc").size());
-        System.out.println("Game over? " + gameFig5.gameOver() + "\n");
+        gameFig5.printBoardState();
 
         // Load Figure 6 example from file
-        System.out.println("Loading intermediate board configuration from file (Figure 6):");
+        System.out.println("Loading board configuration from file (Figure 6):");
         String figure6File = "src/figure6_board.txt";
         System.out.println("File: " + figure6File);
         EscampeBoard gameFig6 = new EscampeBoard();
         gameFig6.setFromFile(figure6File);
         System.out.println("Board loaded successfully!");
-        System.out.println("Black pieces: " + gameFig6.board.getPieces("noir").size());
-        System.out.println("White pieces: " + gameFig6.board.getPieces("blanc").size());
-        System.out.println("Game over? " + gameFig6.gameOver() + "\n");
+        gameFig6.printBoardState();
 
         // Save and reload
         System.out.println("Testing save/load cycle:");
@@ -280,75 +276,32 @@ public class EscampeBoard implements Partie1 {
         System.out.println("Black pieces match: " + (gameLoaded.board.getPieces("noir").size() == 6));
         System.out.println("White pieces match: " + (gameLoaded.board.getPieces("blanc").size() == 6) + "\n");
 
-        // --- PART 2: GAME DEMONSTRATION ON FIGURE 5 ---
-        System.out.println("=== PART 2: GAME DEMONSTRATION ON FIGURE 5 ===\n");
+        // --- PART 2: GAME OVER TEST ---
+        System.out.println("=== PART 2: GAME OVER DEMO ON FIGURES 5 AND 6 ===\n");
+        System.out.println("Figure 5 - Game over? " + gameFig5.gameOver() + "\n");
+        System.out.println("Figure 6 - Game over? " + gameFig6.gameOver() + "\n");
 
-        System.out.println("Using the loaded Figure 5 board for gameplay demonstration.\n");
-        gameFig5.printBoardState();
-
+        // --- PART 3: MOVE VALIDITY TEST ---
+        System.out.println("=== PART 3: MOVE VALIDITY DEMO (FIGURE 5) ===\n");
+        
         // White's first move
-        System.out.println("White's turn (player chooses freely):");
-        String[] possibleWhiteMoves = gameFig5.possiblesMoves("blanc");
-        System.out.println("Possible moves for white: " + possibleWhiteMoves.length + " options");
-        if (possibleWhiteMoves.length > 0) {
-            System.out.println("First 5 possible moves:");
-            for (int i = 0; i < Math.min(5, possibleWhiteMoves.length); i++) {
-                System.out.println("  - " + possibleWhiteMoves[i]);
-            }
-        }
-
-        String move1 = "B6-B5";
-        System.out.println("\nWhite plays: " + move1);
-        System.out.println("Is valid? " + gameFig5.isValidMove(move1, "blanc"));
+        // Valid move from B1 to C1
+        String move1 = "B1-C1";
+        System.out.println(move1 + ": is valid? " + gameFig5.isValidMove(move1, "blanc"));
+        
+        // Invalid move from C6 to B6 (not starting from correct border)
+        String move2 = "C6-B6";
+        System.out.println(move2 + ": is valid? " + gameFig5.isValidMove(move2, "blanc") + "\n");
+        // --- PART 4: PLAY MOVE ---
+        System.out.println("=== PART 4: PLAY MOVE ===\n");
+        
+        // White's first move
         gameFig5.play(move1, "blanc");
         System.out.println("Move executed\n");
         gameFig5.printBoardState();
 
-        // Black's move - must start from same border as white's last move
-        System.out.println("Black's turn (must start from same border type as white's last position):");
-        String[] possibleBlackMoves = gameFig5.possiblesMoves("noir");
-        System.out.println("Possible moves for noir: " + possibleBlackMoves.length + " options");
-        if (possibleBlackMoves.length > 0) {
-            System.out.println("First 5 possible moves:");
-            for (int i = 0; i < Math.min(5, possibleBlackMoves.length); i++) {
-                System.out.println("  - " + possibleBlackMoves[i]);
-            }
-        }
-
-        String move2 = "C1-C2";
-        System.out.println("\nBlack plays: " + move2);
-        System.out.println("Is valid? " + gameFig5.isValidMove(move2, "noir"));
-        gameFig5.play(move2, "noir");
-        System.out.println("Move executed\n");
-
-        // Test invalid moves
-        System.out.println("--- TESTING INVALID MOVES ---\n");
-
-        String invalidMove1 = "A5-A3";  // Wrong border constraint
-        System.out.println("Attempting invalid move: " + invalidMove1 + " for white");
-        System.out.println("Is valid? " + gameFig5.isValidMove(invalidMove1, "blanc"));
-        System.out.println("(Should be false - not starting from correct border)\n");
-
-        String invalidMove2 = "Z9-Z9";  // Invalid position
-        System.out.println("Attempting invalid move: " + invalidMove2);
-        System.out.println("Is valid? " + gameFig5.isValidMove(invalidMove2, "blanc"));
-        System.out.println("(Should be false - invalid position)\n");
-
-        // Continue with more valid moves
-        System.out.println("--- CONTINUING GAMEPLAY ---\n");
-
-        String move3 = "C2-C3";
-        System.out.println("White plays: " + move3);
-        gameFig5.play(move3, "blanc");
-        System.out.println("Move executed\n");
-
-        String move4 = "E1-E2";
-        System.out.println("Black plays: " + move4);
-        gameFig5.play(move4, "noir");
-        System.out.println("Move executed\n");
-
         // Test skip turn
-        System.out.println("--- TESTING SKIP TURN (\"E\") ---\n");
+        System.out.println("--- SKIP TURN (\"E\") ---\n");
         System.out.println("Is \"E\" a valid move? " + gameFig5.isValidMove("E", "blanc"));
         System.out.println("White plays skip turn: E");
         gameFig5.play("E", "blanc");
