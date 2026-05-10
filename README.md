@@ -7,7 +7,7 @@ Implémentation du jeu **Escampe** en Java.
 ## 📁 Structure du projet
 
 ```
-escampe/
+src/
 ├── Core Classes
 │   ├── EscampeBoard.java         (Classe principale - implémente Partie1)
 │   ├── Partie1.java              (Interface requise)
@@ -21,16 +21,10 @@ escampe/
 ├── Testing
 │   └── TestEscampeBoard.java     (Suite de 35 tests)
 │
-├── Documentation
-│   ├── README.md                 (Ce fichier)
-│   ├── FILE_FORMAT.md            (Format de fichier expliqué)
-│   ├── GUIDE_TEST_COMPLET.md     (Guide complet des tests)
-│   └── VERIFICATION_CONSIGNES.md (Vérification des consignes)
-│
-└── Test Files (créés à l'exécution)
-    ├── escampe_board_figure5.txt
-    ├── escampe_board_figure6.txt
-    └── autres fichiers de test
+└── Board State Files
+    ├── figure5_board.txt
+    ├── figure6_board.txt
+    └── current_board.txt
 ```
 
 ## 🚀 Démarrage rapide
@@ -40,19 +34,14 @@ escampe/
 javac -d . src/*.java
 ```
 
-### Exécution des tests
-```bash
-java src.TestEscampeBoard
-```
-
 ### Démonstration interactive
 ```bash
 java src.EscampeBoard
 ```
 
-### Script automatisé
+### Exécution des tests
 ```bash
-./run_tests.sh
+java src.TestEscampeBoard
 ```
 
 ## 📚 Classes principales
@@ -166,61 +155,7 @@ Suite complète de tests (35 tests):
 - [x] Rejet joueur invalide
 - [x] Sensibilité à la casse
 
-## 📊 Tests couverts
-
-| Catégorie | Tests | Status |
-|-----------|-------|--------|
-| Placement initial | 6 | ✓ PASS |
-| Validation coups | 5 | ✓ PASS |
-| Contraintes bordure | 2 | ✓ PASS |
-| Règles de jeu | 7 | ✓ PASS |
-| Fichier I/O | 8 | ✓ PASS |
-| Cas limites | 7 | ✓ PASS |
-| **TOTAL** | **35** | **✓ 100%** |
-
-## 📖 Documentation
-
-Consultez les fichiers suivants pour plus de détails:
-
-1. **FILE_FORMAT.md** - Explication détaillée du format de fichier
-2. **GUIDE_TEST_COMPLET.md** - Guide complet des tests et troubleshooting
-3. **VERIFICATION_CONSIGNES.md** - Vérification point par point des consignes
-
-## 🎯 Utilisation
-
-### Exemple de partie
-```java
-EscampeBoard game = new EscampeBoard();
-
-// Phase 1: Placement initial
-game.play("C1/A1/B2/D2/E1/F2", "noir");
-game.play("D6/B6/C5/E5/F6/A5", "blanc");
-
-// Phase 2: Jeu régulier
-game.play("B6-B5", "blanc");
-game.play("C1-C2", "noir");
-
-// Vérifier l'état
-boolean valid = game.isValidMove("C2-C3", "blanc");
-String[] moves = game.possiblesMoves("blanc");
-
-// Vérifier fin de partie
-if (game.gameOver()) {
-    System.out.println("Partie terminée!");
-}
-
-// Sauvegarder
-game.saveToFile("save.txt");
-
-// Charger
-EscampeBoard loaded = new EscampeBoard();
-loaded.setFromFile("save.txt");
-```
-
 ## 📝 Notes d'implémentation
 
 - Sensibilité à la casse: "B6-B5" valide, "b6-b5" invalide
-- Positions: A-F (colonnes), 1-6 (lignes)
 - Coups possibles toujours inclus "E" pour passer
-- Save/load cycle préserve l'état exact
-- Format fichier strictement validé
