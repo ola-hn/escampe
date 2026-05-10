@@ -1,8 +1,7 @@
 # Escampe
 
-## 📋 Vue d'ensemble
-
-Implémentation du jeu **Escampe** en Java.
+## Binôme
+HNEINI Ola, SLIMANI Inès
 
 ## 📁 Structure du projet
 
@@ -17,9 +16,6 @@ src/
 │   ├── Border.java               (Types de bordure)
 │   ├── MoveValidator.java        (Validation des coups)
 │   └── FileHandler.java          (I/O fichiers)
-│
-├── Testing
-│   └── TestEscampeBoard.java     (Suite de 35 tests)
 │
 └── Board State Files
     ├── figure5_board.txt
@@ -129,19 +125,10 @@ Suite complète de tests (35 tests):
 - [x] `play()` - Exécute un coup
 - [x] `gameOver()` - Détecte fin de partie
 
-### ✓ Placement initial
-- [x] Noir: lignes 1-2
-- [x] Blanc: lignes 5-6
-- [x] 6 pièces par joueur (1 licorne + 5 paladins)
-- [x] Validation stricte
-- [x] Pas de chevauchement
-
 ### ✓ Format de fichier
 - [x] Commentaires avec `%`
 - [x] 6 lignes numérotées (01-06)
-- [x] Numérotation de bas en haut
 - [x] 6 colonnes A-F
-- [x] Support Figures 5 et 6
 
 ### ✓ Règles de jeu
 - [x] Début: jeu non terminé
@@ -154,8 +141,3 @@ Suite complète de tests (35 tests):
 - [x] Rejet position invalide
 - [x] Rejet joueur invalide
 - [x] Sensibilité à la casse
-
-## 📝 Notes d'implémentation
-
-- Sensibilité à la casse: "B6-B5" valide, "b6-b5" invalide
-- Coups possibles toujours inclus "E" pour passer
