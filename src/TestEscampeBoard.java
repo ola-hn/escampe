@@ -1,7 +1,7 @@
 package src;
 
 /**
- * Comprehensive test suite for EscampeBoard
+ * Test suite for EscampeBoard
  * Validates that the implementation respects all game rules and specifications
  */
 public class TestEscampeBoard {
@@ -307,9 +307,9 @@ public class TestEscampeBoard {
         System.out.println("Success rate:   " + (100 * testsPassed / testsRun) + "%");
         
         if (testsFailed == 0) {
-            System.out.println("\n✓ ALL TESTS PASSED - Implementation respects all specifications!");
+            System.out.println("\n✓ ALL TESTS PASSED");
         } else {
-            System.out.println("\n✗ Some tests failed - Please review the implementation");
+            System.out.println("\n✗ Some tests failed");
         }
     }
 }
