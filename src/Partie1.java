@@ -1,46 +1,38 @@
 package src;
 
-/**
- * Interface for the Escampe game
- */
 public interface Partie1 {
-    /**
-     * Initialises a board from a text file
-     * @param fileName the name of the file to read
-     */
+
+    /** initialise un plateau à partir d’un fichier texte
+        * @param fileName le nom du fichier à lire
+    */
     public void setFromFile(String fileName);
 
-    /**
-     * Saves the configuration of the current state (board and remaining pieces) to a file
-     * @param fileName the name of the file to save
-     * The format must be compatible with that used for reading.
-     */
+    /** sauve la configuration de l’état courant (plateau et pièces restantes) dans un fichier
+    * @param fileName le nom du fichier à sauvegarder
+    * Le format doit être compatible avec celui utilisé pour la lecture.
+    */
     public void saveToFile(String fileName);
 
-    /**
-     * Indicates if the move <move> is valid for player <player> on the current board
-     * @param move the move to play,
-     *             in the form "B1-D1" in general,
-     *             in the form "C6/A6/B5/D5/E6/F5" for the move that places the pieces
-     * @param player the player playing, represented by "noir" or "blanc"
-     */
+    /** indique si le coup <move> est valide pour le joueur <player> sur le plateau courant
+    * @param move le coup à jouer,
+    *   sous la forme "B1-D1" en général,
+    *   sous la forme "C6/A6/B5/D5/E6/F5" pour le coup qui place les pièces
+    * @param player le joueur qui joue, représenté par "noir" ou "blanc"
+    */
     public boolean isValidMove(String move, String player);
 
-    /**
-     * Calculates possible moves for player <player> on the current board
-     * @param player the player playing, represented by "noir" or "blanc"
-     */
+    /** calcule les coups possibles pour le joueur <player> sur le plateau courant
+    * @param player le joueur qui joue, représenté par "noir" ou "blanc"
+    */
     public String[] possiblesMoves(String player);
 
-    /**
-     * Modifies the board by playing the move <move> with player <player>
-     * @param move the move to play, in the form "C1-D1" or "C6/A6/B5/D5/E6/F5"
-     * @param player the player playing, represented by "noir" or "blanc"
-     */
+    /** modifie le plateau en jouant le coup move avec la pièce choose
+    * @param move le coup à jouer, sous la forme "C1-D1" ou "C6/A6/B5/D5/E6/F5"
+    * @param player le joueur qui joue, représenté par "noir" ou "blanc"
+    */
     public void play(String move, String player);
-
-    /**
-     * True when the board corresponds to a game end
-     */
+    
+    /** vrai lorsque le plateau corespond à une fin de partie
+    */
     public boolean gameOver();
 }
